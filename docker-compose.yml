@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   order-service:
     build: ./order-service
@@ -8,18 +6,24 @@ services:
       - "8081:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_RABBITMQ_HOST=rabbitmq
     networks:
       - app-network
+    depends_on:
+      - rabbitmq
 
-  payment-service:
-    build: ./payment-service
-    container_name: payment-service
-    ports:
-      - "8082:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - app-network
+#  payment-service:
+#    build: ./payment-service
+#    container_name: payment-service
+#    ports:
+#      - "8082:8080"
+#    environment:
+#      - SPRING_PROFILES_ACTIVE=docker
+#      - SPRING_RABBITMQ_HOST=rabbitmq
+#    networks:
+#      - app-network
+#    depends_on:
+#      - rabbitmq
 
   notification-service:
     build: ./notification-service
@@ -28,6 +32,31 @@ services:
       - "8083:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    networks:
+      - app-network
+    depends_on:
+      - rabbitmq
+
+  #  inventory-service:
+  #    build: ./inventory-service
+  #    container_name: inventory-service
+  #    ports:
+  #      - "8084:8080"
+  #    environment:
+  #      - SPRING_PROFILES_ACTIVE=docker
+  #      - SPRING_RABBITMQ_HOST=rabbitmq
+  #    networks:
+  #      - app-network
+  #    depends_on:
+  #      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - app-network
 
