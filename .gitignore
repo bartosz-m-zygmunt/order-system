@@ -1,0 +1,26 @@
+# Ignorowanie plików binarnych i katalogów IDE
+*.class
+*.log
+*.iml
+.idea/
+.vscode/
+target/
+out/
+bin/
+
+# Ignorowanie plików zależności i konfiguracji
+*.jar
+*.war
+*.ear
+
+# Ignorowanie plików systemowych
+.DS_Store
+Thumbs.db
+
+# Ignorowanie plików związanych z Dockerem
+*.env
+docker-compose.override.yml
+
+# Ignorowanie plików konfiguracyjnych
+application.properties
+application.yml
